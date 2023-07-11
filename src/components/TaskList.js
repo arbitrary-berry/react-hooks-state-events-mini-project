@@ -1,9 +1,19 @@
 import React from "react";
+import Task from "./Task";
+import { v4 as uuid } from "uuid";
 
-function TaskList() {
+function TaskList({ tasks, onCategory, handleDelete }) {
+  if (onCategory && onCategory !== "All") {
+    tasks = tasks.filter((t) => t.category === onCategory);
+  }
+
   return (
     <div className="tasks">
-      {/* display a list of tasks using Task component */}
+      <ul>
+        {tasks.map((task) => (
+          <Task key={uuid()} {...task} handleDelete={handleDelete} />
+        ))}
+      </ul>
     </div>
   );
 }
